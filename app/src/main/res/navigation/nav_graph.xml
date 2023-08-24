@@ -7,7 +7,9 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.petstore.ui.fragments.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragments_home"
+        >
         <action
             android:id="@+id/action_homeFragment_to_detailFragments"
             app:destination="@id/detailFragments" />
@@ -15,7 +17,9 @@
     <fragment
         android:id="@+id/detailFragments"
         android:name="com.example.petstore.ui.fragments.DetailFragments"
-        android:label="DetailFragments" >
+        android:label="DetailFragments"
+        tools:layout="@layout/fragments_details"
+        >
         <action
             android:id="@+id/action_detailFragments_to_homeFragment"
             app:destination="@id/homeFragment" />

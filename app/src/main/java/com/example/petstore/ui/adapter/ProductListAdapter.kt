@@ -26,7 +26,7 @@ class ProductListAdapter(
         val casinhas = mutableListOf<Product>()
 
         for (product in productList) {
-            when (product.Type) {
+            when (product.type) {
                 Category.CAMAS -> camas.add(product)
                 Category.BRINQUEDOS -> brinquedos.add(product)
                 Category.COMEDOUROS -> comedouros.add(product)
@@ -54,15 +54,21 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductListAdapterViewHolder, position: Int) {
-        val productsInThisCategory = dividedProductLists[position]
-        val productAdapter = ProducAdapter(context, onClickItem, productsInThisCategory)
-        holder.binding.productList.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = productAdapter
-        }
+        holder.assemble(dividedProductLists[position])
+
     }
 
     inner class ProductListAdapterViewHolder(val binding: ProductListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        fun assemble(list: List<Product>) {
+            val productAdapter = ProducAdapter(context, onClickItem, list)
+
+            binding.productType.text = list.get(0).CategoryToString()
+            binding.productList.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                adapter = productAdapter
+            }
+        }
     }
 }
