@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <!-- Barra de Pesquisa -->
     <androidx.appcompat.widget.SearchView
@@ -18,55 +18,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
+    <HorizontalScrollView
         android:id="@+id/top"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchView">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/camas"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/img"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-            <ImageView
-                android:id="@+id/brinquedos"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/img_1"
-                app:layout_constraintStart_toEndOf="@id/camas"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-            <ImageView
-                android:id="@+id/comedouros"
-                android:layout_width="115dp"
-                android:layout_height="100dp"
-                android:src="@drawable/img_2"
-                app:layout_constraintStart_toEndOf="@id/brinquedos"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.cardview.widget.CardView
 
-            <ImageView
-                android:id="@+id/casinhas"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/img_3"
-                app:layout_constraintStart_toEndOf="@id/comedouros"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_width="0dp"
+            android:layout_margin="2dp"
+            android:layout_height="wrap_content"
+            >
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/camas"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/img"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView
+                    android:id="@+id/brinquedos"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/img_1"
+                    app:layout_constraintStart_toEndOf="@id/camas"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView
+                    android:id="@+id/comedouros"
+                    android:layout_width="115dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/img_2"
+                    app:layout_constraintStart_toEndOf="@id/brinquedos"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/casinhas"
+                    android:layout_width="85dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/img_3"
+                    app:layout_constraintStart_toEndOf="@id/comedouros"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </HorizontalScrollView>
 
     <!-- Lista de Produtos utilizando RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -75,7 +84,7 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/carrinho"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +116,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
-
 
             <TextView
                 android:id="@+id/ver_carinho"
