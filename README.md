@@ -1,9 +1,9 @@
 # PetStore
 
 <h3>Sobre o projeto</h3>
-<p>O aplicativo simula uma loja virtual, uma petStore, com diversos itens categorizados que podem ser adicionados ao carrinho e têm seu valores somados e exibidos para o usuario. O app utiliza o retrofit para fazer
-a busca das informações da API(um repositório aqui do próprio GitHub) que é uma lista simples com todos os produtos junto em uma coisa só. Para fazer exibir a lista utilizei 2 recyclerViews um para organizar os itens
-e o outro para separar a lista por categorias. Para salvar o os produtos que serão adquiridos utilzei um banco de dados interno do aparelho com o SQlite</p>
+<p>O aplicativo simula uma loja virtual, uma PetStore, com diversos itens categorizados que podem ser adicionados ao carrinho e têm seu valores somados e exibidos para o usuário. O app utiliza o Retrofit para fazer
+a busca das informações da API (um repositório aqui do próprio GitHub), que é uma única lista com todos os produtos juntos. Para dividir a lista em categorias de produtos, utilizei 2 recyclerViews: um para organizar os itens
+e outro para separar a lista por categorias. Para salvar os produtos que serão adquiridos, utilizei um banco de dados interno do aparelho com o SQlite</p>
 <div align="center">
 <img src="https://github.com/phtrebil/PetStore/blob/main/Video%20PetStore.gif" width="300px">
 </div>
