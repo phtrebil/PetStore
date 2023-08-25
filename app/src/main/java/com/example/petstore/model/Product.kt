@@ -10,7 +10,9 @@ class Product(
     val description: String,
     val price: Double,
     val type: Category
-):Parcelable {
+) : Parcelable {
+    // Converte a enumeração de categoria em uma string descritiva.
+    // Código funciona, mas toda vez que modificar o enum temos que modificar essa função também.
     fun CategoryToString(): String {
         val stringBuilder = StringBuilder()
 
@@ -24,6 +26,7 @@ class Product(
         return stringBuilder.toString()
     }
 
+    // Métodos para a implementação Parcelable
     override fun describeContents(): Int {
         return 0
     }
@@ -53,8 +56,9 @@ class Product(
     }
 }
 
+// Enumeração para categorias de produtos.
+// Ao adiconar nova categoria lembrar de de atualizar a função categoryToString(), da classe Product.
+// E também o init do ProductListAdapter
 enum class Category {
     CAMAS, BRINQUEDOS, COMEDOUROS, CASINHAS;
-
-
 }

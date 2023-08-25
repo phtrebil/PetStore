@@ -8,18 +8,19 @@
     >
 
     <!-- Imagem do produto -->
+
+    <!-- Nome do produto -->
     <ImageView
         android:id="@+id/productImage"
         android:layout_width="350dp"
         android:layout_height="350dp"
-        android:padding="30dp"
         android:layout_margin="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
-    <!-- Nome do produto -->
     <TextView
         android:id="@+id/productName"
         android:layout_width="0dp"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_lilas"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <!-- Barra de Pesquisa -->
     <androidx.appcompat.widget.SearchView
@@ -118,7 +118,7 @@
 
             <TextView
                 android:id="@+id/ver_carinho"
-                android:text="Ver carrinho"
+                android:text="Esvaziar Carrinho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

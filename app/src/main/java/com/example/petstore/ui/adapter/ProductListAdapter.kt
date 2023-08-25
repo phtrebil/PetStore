@@ -18,8 +18,11 @@ class ProductListAdapter(
     private val productList: MutableList<Product> = products.toMutableList()
     private val dividedProductLists: MutableList<List<Product>> = mutableListOf()
 
+    /* Divide a lista de produtos em categorias no construtor. Embora tenha achado divertido montar essa lista,
+    acredito que seja pouco prático. Tendo em vista que toda vez que adiconar uma nova
+    categoria também será necessário modficiar esse código.
+     */
     init {
-        // Dividir a lista de produtos em quatro partes (categorias)
         val camas = mutableListOf<Product>()
         val brinquedos = mutableListOf<Product>()
         val comedouros = mutableListOf<Product>()
@@ -40,6 +43,7 @@ class ProductListAdapter(
         dividedProductLists.add(casinhas)
     }
 
+    // Cria uma nova ViewHolder
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -49,18 +53,20 @@ class ProductListAdapter(
         return ProductListAdapterViewHolder(binding)
     }
 
+    // Retorna a quantidade de categorias
     override fun getItemCount(): Int {
         return dividedProductLists.size
     }
 
+    // Associa os dados de uma categoria a uma ViewHolder
     override fun onBindViewHolder(holder: ProductListAdapterViewHolder, position: Int) {
         holder.assemble(dividedProductLists[position])
-
     }
 
     inner class ProductListAdapterViewHolder(val binding: ProductListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        // Monta a lista de produtos de uma categoria na ViewHolder
         fun assemble(list: List<Product>) {
             val productAdapter = ProducAdapter(context, onClickItem, list) { product ->
                 // Aqui, dentro do escopo do ProducAdapter, você usa o onClickItem externo

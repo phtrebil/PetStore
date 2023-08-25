@@ -13,11 +13,11 @@ class ProducAdapter(
     var onClickItem: (product: Product) -> Unit = {},
     products: List<Product> = emptyList(),
     private val onItemClick: (product: Product) -> Unit
-
 ) : RecyclerView.Adapter<ProducAdapter.ProductViewHolder>() {
 
     private val products = products.toMutableList()
 
+    // Cria uma nova ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder =
         ProductViewHolder(
             ProductLayoutBinding
@@ -27,8 +27,10 @@ class ProducAdapter(
             onClickItem
         )
 
+    // Retorna a quantidade de itens na lista
     override fun getItemCount(): Int = products.size
 
+    // Associa os dados a uma ViewHolder
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.assemble(products[position])
     }
@@ -40,6 +42,7 @@ class ProducAdapter(
 
         private lateinit var product: Product
 
+        // Preenche os dados da ViewHolder com o produto fornecido
         fun assemble(product: Product) {
             this.product = product
             binding.productImage.load(product.image)
@@ -47,14 +50,13 @@ class ProducAdapter(
             binding.productPrice.text = product.price.toString()
         }
 
-
         init {
+            // Configura o clique no item da lista
             itemView.setOnClickListener {
                 if (::product.isInitialized) {
                     onItemClick(product)
                 }
             }
         }
-
     }
 }

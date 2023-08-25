@@ -1,4 +1,4 @@
-package com.example.petstore.ui
+package com.example.petstore.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
