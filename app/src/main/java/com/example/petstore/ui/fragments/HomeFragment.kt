@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.petstore.R
 import com.example.petstore.data.remote.ProductRepository
 import com.example.petstore.databinding.FragmentsHomeBinding
 import com.example.petstore.model.Product
@@ -19,6 +21,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentsHomeBinding
     private lateinit var adapter: ProductListAdapter
+    private val controler by lazy {
+        findNavController()
+    }
 
     private var productList: List<Product> = emptyList()
 
@@ -26,7 +31,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentsHomeBinding.inflate(inflater, container, false)
         val rootView = binding.root
@@ -55,6 +60,12 @@ class HomeFragment : Fragment() {
     private fun startRecyclerView() {
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.productsRecyclerView.adapter = adapter
+        adapter.onClickItem ={ product ->
+            val bundle = Bundle()
+            bundle.putParcelable("product", product)
+            controler.navigate(R.id.action_homeFragment_to_detailFragments, bundle)
+        }
+
     }
 
 

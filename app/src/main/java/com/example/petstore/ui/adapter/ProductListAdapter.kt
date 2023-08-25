@@ -11,7 +11,7 @@ import com.example.petstore.model.Product
 
 class ProductListAdapter(
     private val context: Context,
-    private val onClickItem: (product: Product) -> Unit = {},
+    var onClickItem: (product: Product) -> Unit = {},
     products: List<Product> = emptyList()
 ) : RecyclerView.Adapter<ProductListAdapter.ProductListAdapterViewHolder>() {
 
@@ -62,7 +62,10 @@ class ProductListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun assemble(list: List<Product>) {
-            val productAdapter = ProducAdapter(context, onClickItem, list)
+            val productAdapter = ProducAdapter(context, onClickItem, list) { product ->
+                // Aqui, dentro do escopo do ProducAdapter, você usa o onClickItem externo
+                onClickItem(product)
+            }
 
             binding.productType.text = list.get(0).CategoryToString()
             binding.productList.apply {

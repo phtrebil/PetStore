@@ -10,9 +10,11 @@ import com.example.petstore.model.Product
 
 class ProducAdapter(
     private val context: Context,
-    var onClickItem: (product:Product) -> Unit = {},
-    products: List<Product> = emptyList()
-): RecyclerView.Adapter<ProducAdapter.ProductViewHolder>() {
+    var onClickItem: (product: Product) -> Unit = {},
+    products: List<Product> = emptyList(),
+    private val onItemClick: (product: Product) -> Unit
+
+) : RecyclerView.Adapter<ProducAdapter.ProductViewHolder>() {
 
     private val products = products.toMutableList()
 
@@ -34,7 +36,7 @@ class ProducAdapter(
     inner class ProductViewHolder(
         private val binding: ProductLayoutBinding,
         private val onClickItem: (product: Product) -> Unit
-    ) :RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var product: Product
 
@@ -46,12 +48,10 @@ class ProducAdapter(
         }
 
 
-
-
         init {
             itemView.setOnClickListener {
                 if (::product.isInitialized) {
-                    onClickItem(product)
+                    onItemClick(product)
                 }
             }
         }
