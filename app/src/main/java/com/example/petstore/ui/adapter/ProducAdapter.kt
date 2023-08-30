@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.petstore.databinding.ProductLayoutBinding
 import com.example.petstore.model.Product
+import com.example.petstore.ui.extensions.formatPrice
 
 class ProducAdapter(
     private val context: Context,
@@ -47,7 +48,7 @@ class ProducAdapter(
             this.product = product
             binding.productImage.load(product.image)
             binding.productName.text = product.name
-            binding.productPrice.text = product.price.toString()
+            binding.productPrice.text = formatPrice(product.price)
         }
 
         init {
