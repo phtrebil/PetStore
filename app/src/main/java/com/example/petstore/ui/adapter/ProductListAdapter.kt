@@ -68,15 +68,16 @@ class ProductListAdapter(
 
         // Monta a lista de produtos de uma categoria na ViewHolder
         fun assemble(list: List<Product>) {
-            val productAdapter = ProducAdapter(context, onClickItem, list) { product ->
-                // Aqui, dentro do escopo do ProducAdapter, você usa o onClickItem externo
-                onClickItem(product)
-            }
+            if (list.isNotEmpty()) {
+                val productAdapter = ProducAdapter(context, onClickItem, list) { product ->
+                    onClickItem(product)
+                }
 
-            binding.productType.text = list.get(0).CategoryToString()
-            binding.productList.apply {
-                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                adapter = productAdapter
+                binding.productType.text = list[0].CategoryToString()
+                binding.productList.apply {
+                    layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    adapter = productAdapter
+                }
             }
         }
     }
