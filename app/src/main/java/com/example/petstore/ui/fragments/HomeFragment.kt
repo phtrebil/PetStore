@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petstore.R
 import com.example.petstore.databinding.FragmentsHomeBinding
 import com.example.petstore.model.Category
+import com.example.petstore.model.Category.BRINQUEDOS
 import com.example.petstore.model.Category.CAMAS
+import com.example.petstore.model.Category.CASINHAS
+import com.example.petstore.model.Category.COMEDOUROS
 import com.example.petstore.model.Product
 import com.example.petstore.ui.adapter.ProductListAdapter
 import com.example.petstore.ui.dialog.ClearCartDialogHelper
@@ -55,11 +59,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         configureShoppingCart()
         viewModel.loadProducts()
-        configureButtonFilter(CAMAS) // Configura o botão de filtro para a categoria CAMAS
+        configureButtonFilter(CAMAS, binding.camas)
+        configureButtonFilter(BRINQUEDOS, binding.brinquedos)
+        configureButtonFilter(COMEDOUROS, binding.comedouros)
+        configureButtonFilter(CASINHAS, binding.casinhas)
     }
 
-    private fun configureButtonFilter(category: Category) {
-        binding.camas.setOnClickListener {
+    private fun configureButtonFilter(category: Category, image: ImageView) {
+        image.setOnClickListener {
             val filteredProducts = productList.filter { it.type == category }
             startRecyclerView(filteredProducts)
         }
