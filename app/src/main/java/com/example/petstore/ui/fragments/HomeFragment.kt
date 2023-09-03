@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +32,9 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentsHomeBinding
     private lateinit var adapter: ProductListAdapter
+    private lateinit var originalProductList: List<Product>
     private lateinit var productList: List<Product>
+    private var filter: Boolean = false
     private val controler by lazy {
         findNavController()
     }
@@ -45,6 +49,7 @@ class HomeFragment : Fragment() {
                 HomeViewModel::class.java
             )
         viewModel.productListLiveData.observe(viewLifecycleOwner, Observer {
+            originalProductList = it
             productList = it
             startRecyclerView(productList)
         })
@@ -63,9 +68,37 @@ class HomeFragment : Fragment() {
         configureButtonFilter(BRINQUEDOS, binding.brinquedos)
         configureButtonFilter(COMEDOUROS, binding.comedouros)
         configureButtonFilter(CASINHAS, binding.casinhas)
+        configureSearchBar()
     }
 
+    private fun configureSearchBar() {
+        binding.searchView.setOnQueryTextListener(object: OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val filteredProducts = productList.filter {
+                    it.name.contains(query.orEmpty(), ignoreCase = true)
+                }
+                startRecyclerView(filteredProducts)
+                filter = true
+                return true
+
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
+
+    }
+
+    private fun restoreOriginalProductList() {
+        productList = originalProductList
+        startRecyclerView(productList)
+    }
+
+
     private fun configureButtonFilter(category: Category, image: ImageView) {
+        filter = true
         image.setOnClickListener {
             val filteredProducts = productList.filter { it.type == category }
             startRecyclerView(filteredProducts)
