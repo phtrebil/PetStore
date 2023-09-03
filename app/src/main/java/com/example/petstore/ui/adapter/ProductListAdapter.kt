@@ -69,7 +69,7 @@ class ProductListAdapter(
         // Monta a lista de produtos de uma categoria na ViewHolder
         fun assemble(list: List<Product>) {
             if (list.isNotEmpty()) {
-                val productAdapter = ProducAdapter(context, onClickItem, list) { product ->
+                val productAdapter = ProducAdapter(context,  list, onClickItem,) { product ->
                     onClickItem(product)
                 }
 

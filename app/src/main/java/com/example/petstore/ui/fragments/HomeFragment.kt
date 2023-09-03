@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +21,7 @@ import com.example.petstore.model.Category.CAMAS
 import com.example.petstore.model.Category.CASINHAS
 import com.example.petstore.model.Category.COMEDOUROS
 import com.example.petstore.model.Product
+import com.example.petstore.ui.adapter.ProducAdapter
 import com.example.petstore.ui.adapter.ProductListAdapter
 import com.example.petstore.ui.dialog.ClearCartDialogHelper
 import com.example.petstore.ui.extensions.formatPrice
@@ -69,6 +70,20 @@ class HomeFragment : Fragment() {
         configureButtonFilter(COMEDOUROS, binding.comedouros)
         configureButtonFilter(CASINHAS, binding.casinhas)
         configureSearchBar()
+        configureReturnBotton()
+    }
+
+    private fun configureReturnBotton() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (filter) {
+                filter = false
+                restoreOriginalProductList()
+            } else {
+                // Caso contrário, permita o comportamento padrão de voltar.
+                isEnabled = false
+                requireActivity().onBackPressed()
+            }
+        }
     }
 
     private fun configureSearchBar() {
@@ -82,13 +97,11 @@ class HomeFragment : Fragment() {
                 return true
 
             }
-
             override fun onQueryTextChange(p0: String?): Boolean {
                 return false
             }
 
         })
-
     }
 
     private fun restoreOriginalProductList() {
@@ -131,4 +144,5 @@ class HomeFragment : Fragment() {
             controler.navigate(R.id.action_homeFragment_to_detailFragments, bundle)
         }
     }
+
 }

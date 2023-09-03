@@ -11,8 +11,8 @@ import com.example.petstore.ui.extensions.formatPrice
 
 class ProducAdapter(
     private val context: Context,
-    var onClickItem: (product: Product) -> Unit = {},
     products: List<Product> = emptyList(),
+    var onClickItem: (product: Product) -> Unit = {},
     private val onItemClick: (product: Product) -> Unit
 ) : RecyclerView.Adapter<ProducAdapter.ProductViewHolder>() {
 
