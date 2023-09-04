@@ -92,8 +92,12 @@ class HomeFragment : Fragment() {
                 val filteredProducts = productList.filter {
                     it.name.contains(query.orEmpty(), ignoreCase = true)
                 }
-                startRecyclerView(filteredProducts)
                 filter = true
+                adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
+
+                    startRecyclerView(productList)
+                })
+
                 return true
 
             }
@@ -106,15 +110,21 @@ class HomeFragment : Fragment() {
 
     private fun restoreOriginalProductList() {
         productList = originalProductList
-        startRecyclerView(productList)
+        filter = false
+        adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
+
+            startRecyclerView(productList)
+        })
     }
 
 
     private fun configureButtonFilter(category: Category, image: ImageView) {
-        filter = true
         image.setOnClickListener {
+            filter = true
             val filteredProducts = productList.filter { it.type == category }
-            startRecyclerView(filteredProducts)
+            adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
+                startRecyclerView(filteredProducts)
+            })
         }
     }
 
@@ -135,11 +145,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun startRecyclerView(productList: List<Product>) {
-        adapter = ProductListAdapter(requireContext(), products = productList)
+        adapter = ProductListAdapter(requireContext(), filter = filter, products = productList)
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.productsRecyclerView.adapter = adapter
         adapter.onClickItem = { product ->
             val bundle = Bundle()
+            filter = false
             bundle.putParcelable("product", product)
             controler.navigate(R.id.action_homeFragment_to_detailFragments, bundle)
         }
