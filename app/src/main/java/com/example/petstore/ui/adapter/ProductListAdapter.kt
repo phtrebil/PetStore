@@ -92,7 +92,7 @@ class ProductListAdapter(
                 if (filter) {
                     binding.productType.visibility = View.GONE
                     binding.productList.apply {
-                        layoutManager = GridLayoutManager(context, 2)
+                        layoutManager = LinearLayoutManager(context)
                         adapter = productAdapter
                     }
                 } else {

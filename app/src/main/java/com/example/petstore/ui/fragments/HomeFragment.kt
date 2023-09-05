@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
                 filter = true
                 adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
 
-                    startRecyclerView(productList)
+                    startRecyclerView(filteredProducts)
                 })
 
                 return true
