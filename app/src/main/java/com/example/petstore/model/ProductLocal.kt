@@ -1,7 +1,11 @@
 package com.example.petstore.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity
 class ProductLocal(
+    @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     var quantity: Int,
     var image: String,
