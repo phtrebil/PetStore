@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.petstore.data.local.room.ProductDB
 import com.example.petstore.data.remote.ProductRepository
 import com.example.petstore.model.Product
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val database: ProductDatabase
+    private val database: ProductDB
 ) : ViewModel() {
     private val productRepository = ProductRepository()
 
@@ -31,10 +32,10 @@ class HomeViewModel(
     }
 
     fun calculateTotalPrice(): Double {
-        return database.calculateTotalPrice()
+        return database.productDB().calculateTotalPrice()
     }
 
     fun clearAllProducts() {
-        database.clearAllProducts()
+        database.productDB().delete()
     }
 }
