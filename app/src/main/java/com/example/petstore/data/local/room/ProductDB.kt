@@ -15,7 +15,7 @@ abstract class ProductDB: RoomDatabase() {
             return db ?: databaseBuilder(
                 context,
                 ProductDB::class.java, "Cliente.db"
-            ).build()
+            ).allowMainThreadQueries().build()
                 .also {
                     db = it
                 }

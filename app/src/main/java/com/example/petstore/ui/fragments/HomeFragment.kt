@@ -1,6 +1,5 @@
 package com.example.petstore.ui.fragments
 
-import ProductDatabase
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,11 @@ import android.widget.ImageView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petstore.R
+import com.example.petstore.data.local.room.ProductDB
 import com.example.petstore.databinding.FragmentsHomeBinding
 import com.example.petstore.model.Category
 import com.example.petstore.model.Category.BRINQUEDOS
@@ -21,7 +20,6 @@ import com.example.petstore.model.Category.CAMAS
 import com.example.petstore.model.Category.CASINHAS
 import com.example.petstore.model.Category.COMEDOUROS
 import com.example.petstore.model.Product
-import com.example.petstore.ui.adapter.ProducAdapter
 import com.example.petstore.ui.adapter.ProductListAdapter
 import com.example.petstore.ui.dialog.ClearCartDialogHelper
 import com.example.petstore.ui.extensions.formatPrice
@@ -46,19 +44,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewModel =
-            ViewModelProvider(this, HomeViewModelFactory(ProductDatabase(requireContext()))).get(
+            ViewModelProvider(this, HomeViewModelFactory(ProductDB.instance(requireContext()))).get(
                 HomeViewModel::class.java
             )
-        viewModel.productListLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.productListLiveData.observe(viewLifecycleOwner) {
             originalProductList = it
             productList = it
             startRecyclerView(productList)
-        })
+        }
 
         binding = FragmentsHomeBinding.inflate(inflater, container, false)
-        val rootView = binding.root
 
-        return rootView
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,10 +90,10 @@ class HomeFragment : Fragment() {
                     it.name.contains(query.orEmpty(), ignoreCase = true)
                 }
                 filter = true
-                adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
+                adapter.observeFilterChanges(viewLifecycleOwner) {
 
                     startRecyclerView(filteredProducts)
-                })
+                }
 
                 return true
 
@@ -111,10 +108,9 @@ class HomeFragment : Fragment() {
     private fun restoreOriginalProductList() {
         productList = originalProductList
         filter = false
-        adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
-
+        adapter.observeFilterChanges(viewLifecycleOwner) {
             startRecyclerView(productList)
-        })
+        }
     }
 
 
@@ -122,9 +118,9 @@ class HomeFragment : Fragment() {
         image.setOnClickListener {
             filter = true
             val filteredProducts = productList.filter { it.type == category }
-            adapter.observeFilterChanges(viewLifecycleOwner, Observer { newFilterValue ->
+            adapter.observeFilterChanges(viewLifecycleOwner) {
                 startRecyclerView(filteredProducts)
-            })
+            }
         }
     }
 

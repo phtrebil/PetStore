@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.petstore.R
+import com.example.petstore.data.local.room.ProductDB
 import com.example.petstore.databinding.FragmentsDetailsBinding
 import com.example.petstore.model.Category
 import com.example.petstore.model.Product
@@ -32,7 +33,7 @@ class DetailFragments : Fragment() {
         super.onCreate(savedInstanceState)
 
         // Inicializa o ViewModel usando a instância do banco de dados
-        viewModel = ViewModelProvider(this, DetailViewModelFactory(ProductDatabase(requireContext()))).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, DetailViewModelFactory(ProductDB.instance(requireContext()))).get(DetailViewModel::class.java)
 
         // Obtém o produto da argumento (se existir)
         val args = arguments
