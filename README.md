@@ -12,7 +12,8 @@ e outro para separar a lista por categorias. Para salvar os produtos que serão 
 
 - Android Studio: IDE oficial de desenvolvimento para aplicativos Android.
 - Kotlin: Linguagem de programação moderna e oficial para o desenvolvimento Android.
-- SQLite: Banco de dados local para armazenar os produtos e informações do carrinho de compras.
+- <a href="https://github.com/phtrebil/PetStore/tree/release/SQlite">SQLite(clique para ir para versão com SQlite):</a> Banco de dados local para armazenar os produtos e informações do carrinho de compras.
+- Room(versão main): Banco de dados local para armazenar os produtos e informações do carrinho de compras.
 - ViewModel: Componente da arquitetura Jetpack que ajuda a gerenciar e manter os dados da interface do usuário de forma mais organizada, permitindo a separação das preocupações.
 - LiveData: Componente da arquitetura Jetpack que oferece uma maneira de observar e reagir a mudanças nos dados de forma reativa.
 - RecyclerView: Widget de exibição de lista flexível e eficiente para mostrar listas grandes de itens de forma otimizada.
