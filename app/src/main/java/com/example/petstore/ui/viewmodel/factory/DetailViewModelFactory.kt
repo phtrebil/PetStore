@@ -1,6 +1,5 @@
 package com.example.petstore.ui.viewmodel.factory
 
-import ProductDatabase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.petstore.data.local.room.ProductDB

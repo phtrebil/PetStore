@@ -9,6 +9,7 @@ import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petstore.R
@@ -25,6 +26,7 @@ import com.example.petstore.ui.dialog.ClearCartDialogHelper
 import com.example.petstore.ui.extensions.formatPrice
 import com.example.petstore.ui.viewmodel.HomeViewModel
 import com.example.petstore.ui.viewmodel.factory.HomeViewModelFactory
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -60,7 +62,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureShoppingCart()
+        lifecycleScope.launch {configureShoppingCart()  }
         viewModel.loadProducts()
         configureButtonFilter(CAMAS, binding.camas)
         configureButtonFilter(BRINQUEDOS, binding.brinquedos)
@@ -124,8 +126,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun configureShoppingCart() {
-        if (viewModel.calculateTotalPrice() == 0.0) {
+    private suspend fun configureShoppingCart() {
+        if (viewModel.calculateTotalPrice()== 0.0) {
             binding.carrinho.visibility = View.GONE
         }
 

@@ -11,12 +11,12 @@ import com.example.petstore.model.ProductLocal
 interface ProductDao {
 
     @Insert
-    fun insert(product: ProductLocal)
+    suspend fun insert(product: ProductLocal)
 
-    @Delete
-    fun delete(vararg products: ProductLocal)
+    @Query("DELETE FROM ProductLocal")
+    suspend fun delete()
 
     @Query("SELECT SUM(quantity * price) FROM ProductLocal")
-    fun calculateTotalPrice(): Double
+    suspend fun calculateTotalPrice(): Double
 }
 

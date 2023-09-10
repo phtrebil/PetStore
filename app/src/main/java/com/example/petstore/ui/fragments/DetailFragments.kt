@@ -1,6 +1,5 @@
 package com.example.petstore.ui.fragments
 
-import ProductDatabase
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
