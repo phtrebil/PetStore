@@ -36,7 +36,7 @@ class HomeViewModel(
     suspend fun calculateTotalPrice():Double{
         return viewModelScope.async {
             val totalPrice = database.productDB().calculateTotalPrice()
-            totalPrice ?: 0.0 // Defina um valor padrão (0.0) caso o resultado seja nulo
+            totalPrice
         }.await()
     }
 
