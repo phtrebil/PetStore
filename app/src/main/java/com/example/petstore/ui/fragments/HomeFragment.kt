@@ -66,7 +66,9 @@ class HomeFragment : Fragment() {
         configureReturnButton()
 
         // Carregamento inicial dos produtos.
+
         viewModel.loadProducts()
+
 
         // Configuração dos botões de filtro.
         configureFilterButton(Category.CAMAS, binding.camas)

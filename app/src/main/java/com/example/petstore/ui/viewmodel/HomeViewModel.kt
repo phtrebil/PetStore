@@ -18,15 +18,15 @@ class HomeViewModel(
     private val _productListLiveData = MutableLiveData<List<Product>>()
     val productListLiveData: LiveData<List<Product>> = _productListLiveData
 
-    fun loadProducts() {
-        viewModelScope.launch {
-            try {
-               _productListLiveData.value = productRepository.productService.getProducts()
+     fun loadProducts() {
+         viewModelScope.launch {
+             try {
+                 _productListLiveData.value = productRepository.productService.getProducts()
 
-            } catch (e: Exception) {
-                _productListLiveData.value = emptyList()
-            }
-        }
+             } catch (e: Exception) {
+                 _productListLiveData.value = emptyList()
+             }
+         }
     }
 
     suspend fun calculateTotalPrice():Double{
