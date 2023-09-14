@@ -11,20 +11,17 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.Objects
 
-
+@ExperimentalCoroutinesApi
 class HomeViewModelTest {
 
     @get:Rule
@@ -33,7 +30,6 @@ class HomeViewModelTest {
     val dao = mockk<ProductDB>()
     private val _productListLiveData = mockk<Observer<List<Product>>>(relaxed = true)
     private val productRepository = mockk<ProductRepository>()
-    @ExperimentalCoroutinesApi
     private val testDispatcher  = UnconfinedTestDispatcher()
     private val list = listOf(
     Product(
@@ -82,7 +78,7 @@ class HomeViewModelTest {
                 dao.productDB().calculateTotalPrice()
             }.returns(10.0)
 
-           val homeViewModel = HomeViewModel(dao)
+           val homeViewModel = HomeViewModel(dao, productRepository)
 
             val result = homeViewModel.calculateTotalPrice()
 
@@ -96,7 +92,7 @@ class HomeViewModelTest {
     @Test
     fun `Should get room query delete() function When uses clearAllProducts()`() {
 
-        val homeViewModel = HomeViewModel(dao)
+        val homeViewModel = HomeViewModel(dao, productRepository)
 
         coEvery {
             dao.productDB().delete()
@@ -111,14 +107,14 @@ class HomeViewModelTest {
     }
 
     fun instanciaViewModel():HomeViewModel{
-        val viewModel = HomeViewModel(dao)
+        val viewModel = HomeViewModel(dao, productRepository)
         viewModel.productListLiveData.observeForever(_productListLiveData)
         return viewModel
     }
 
 
     @Test
-    fun `Should call getProducts from productService When loadProducts is successful`() = testDispatcher.run {
+    fun `Should call getProducts from productService When loadProducts is successful`() = runTest {
 
         val homeViewModel = instanciaViewModel()
 
@@ -131,7 +127,6 @@ class HomeViewModelTest {
         coVerify {
            productRepository.productService.getProducts()
         }
-
 
 
     }
@@ -147,7 +142,7 @@ class HomeViewModelTest {
 
         homeViewModel.loadProducts()
 
-        homeViewModel.productListLiveData.value?.let { assert(it.isEmpty()) }
+        assert(homeViewModel.productListLiveData.value == emptyList<Objects>())
     }
 
 }

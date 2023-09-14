@@ -11,9 +11,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val database: ProductDB
+    private val database: ProductDB,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
-    private val productRepository = ProductRepository()
+
 
     private val _productListLiveData = MutableLiveData<List<Product>>()
     val productListLiveData: LiveData<List<Product>> = _productListLiveData

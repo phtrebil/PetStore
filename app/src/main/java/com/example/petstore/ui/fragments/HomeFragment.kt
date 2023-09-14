@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petstore.R
 import com.example.petstore.data.local.room.ProductDB
+import com.example.petstore.data.remote.ProductRepository
 import com.example.petstore.databinding.FragmentsHomeBinding
 import com.example.petstore.model.Category
 import com.example.petstore.model.Product
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
     ): View {
         // Inicialização do ViewModel com uma fábrica e observação de LiveData.
         viewModel =
-            ViewModelProvider(this, HomeViewModelFactory(ProductDB.instance(requireContext()))).get(
+            ViewModelProvider(this, HomeViewModelFactory(ProductDB.instance(requireContext()), ProductRepository())).get(
                 HomeViewModel::class.java
             )
         viewModel.productListLiveData.observe(viewLifecycleOwner) {
