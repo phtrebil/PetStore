@@ -124,6 +124,8 @@ class HomeViewModelTest {
 
         homeViewModel.loadProducts()
 
+        assert(homeViewModel.productListLiveData.value == list)
+
         coVerify {
            productRepository.productService.getProducts()
         }
@@ -142,7 +144,7 @@ class HomeViewModelTest {
 
         homeViewModel.loadProducts()
 
-        assert(homeViewModel.productListLiveData.value == emptyList<Objects>())
+        assert(homeViewModel.productListLiveData.value == emptyList<Product>())
     }
 
 }
