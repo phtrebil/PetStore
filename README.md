@@ -22,6 +22,8 @@ e outro para separar a lista por categorias. Para salvar os produtos que serão 
 - AlertDialog: Componente que permite exibir caixas de diálogo modais para interações com o usuário.
 - Coroutines: Biblioteca que facilita a programação assíncrona e concorrente em Kotlin, ajudando a evitar bloqueios na thread principal.
 - MVVM (Model-View-ViewModel): Padrão de arquitetura que separa os componentes do aplicativo em três camadas principais - Model (representa os dados e a lógica de negócios), View (responsável pela interface do usuário) e ViewModel (gerencia e fornece os dados necessários para a interface do usuário).
+- Testes Unitários(jUnit): Os testes unitários com JUnit são usados para testar unidades isoladas de código, como funções ou métodos, de forma independente.
+- Testes Instrumentados(Espresso):Os testes instrumentados com Espresso são usados para testar a interação do usuário em aplicativos Android. Eles simulam ações do usuário, como toques na tela, digitação de texto e clique em botões.
 
 <h3>Sobre os Desafios de implementar o projeto</h3>
 
@@ -33,6 +35,10 @@ Apesar do esforço, a solução que encontrei - embora funcional - não consider
 Outro grande problema apareceu na hora de implementar a persistência de dados. Normalmente utilizo o Room, que é a ferramenta que estou mais habituado a utilizar. Porém, tive um problema de compatibilidade no meu Android Studio, que parou de aceitar o plugin ‘kotlin-kapt’. A sua ausência estava causando algum conflito com as dependências do Room e eu não soube resolver esse problema. Em outro projeto, utilizei o próprio SQLite para fazer o banco de dados local, portanto foi a solução que utilizei nessa aplicação também. </p>
 <p>Assim, o app utiliza o Retrofit para buscar a lista de produtos que pode ser comprada, utiliza recyclerView aninhado para organização das listas, e o banco de dados SQlite para salvar o produtos que o usuário deseja comprar.</p>
 <p>Em resumo: gostei muito do desafio e me diverti muito fazendo as implementações! </p>
+
+<hr>
+
+<p><strong>ATUALIZAÇÃO:</strong> Atualmente atualizei o aplicativo e ele está utilizando permanência de dados com o Room, além de ter testes unitários com o jUnit e testes instrumentados com Espresso</p>
 
 <h3>Contribuindo</h3>
 <p>Este é um projeto pessoal, mas caso você queira contribuir com alguma melhoria ou correção de bug, sinta-se à vontade para abrir uma issue ou enviar um pull request.</p>
