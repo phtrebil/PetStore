@@ -14,7 +14,7 @@ abstract class ProductDB: RoomDatabase() {
         fun instance(context: Context): ProductDB{
             return db ?: databaseBuilder(
                 context,
-                ProductDB::class.java, "Cliente.db"
+                ProductDB::class.java, "Product.db"
             ).build()
                 .also {
                     db = it
