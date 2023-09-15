@@ -5,7 +5,7 @@
 a busca das informações da API (um repositório aqui do próprio GitHub), que é uma única lista com todos os produtos juntos. Para dividir a lista em categorias de produtos, utilizei 2 recyclerViews: um para organizar os itens
 e outro para separar a lista por categorias. Para salvar os produtos que serão adquiridos, utilizei um banco de dados interno do aparelho com o SQlite</p>
 <div align="center">
-<img src="https://github.com/phtrebil/PetStore/blob/main/Video%20PetStore.gif" width="300px">
+<img src="https://github.com/phtrebil/PetStore/blob/main/PetStore_Ok.gif" width="300px">
 </div>
 
 <h3>Tecnologias utilizadas</h3>
