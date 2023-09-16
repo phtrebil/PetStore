@@ -9,18 +9,5 @@ import com.example.petstore.model.ProductLocal
 @Database(entities = [ProductLocal::class], version = 1)
 abstract class ProductDB: RoomDatabase() {
 
-    companion object{
-        @Volatile private var db: ProductDB? = null
-        fun instance(context: Context): ProductDB{
-            return db ?: databaseBuilder(
-                context,
-                ProductDB::class.java, "Product.db"
-            ).build()
-                .also {
-                    db = it
-                }
-        }
-    }
-
     abstract fun productDB():ProductDao
 }

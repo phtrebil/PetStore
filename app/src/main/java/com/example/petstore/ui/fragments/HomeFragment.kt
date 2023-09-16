@@ -24,9 +24,11 @@ import com.example.petstore.ui.extensions.formatPrice
 import com.example.petstore.ui.viewmodel.HomeViewModel
 import com.example.petstore.ui.viewmodel.factory.HomeViewModelFactory
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
+    private val database by inject<ProductDB>()
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentsHomeBinding
     private lateinit var adapter: ProductListAdapter
@@ -44,7 +46,7 @@ class HomeFragment : Fragment() {
     ): View {
         // Inicialização do ViewModel com uma fábrica e observação de LiveData.
         viewModel =
-            ViewModelProvider(this, HomeViewModelFactory(ProductDB.instance(requireContext()), ProductRepository())).get(
+            ViewModelProvider(this, HomeViewModelFactory(database, ProductRepository())).get(
                 HomeViewModel::class.java
             )
         viewModel.productListLiveData.observe(viewLifecycleOwner) {
