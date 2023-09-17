@@ -8,13 +8,10 @@ import android.widget.ImageView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.petstore.R
-import com.example.petstore.data.local.room.ProductDB
-import com.example.petstore.data.remote.ProductRepository
 import com.example.petstore.databinding.FragmentsHomeBinding
 import com.example.petstore.model.Category
 import com.example.petstore.model.Product
@@ -22,14 +19,11 @@ import com.example.petstore.ui.adapter.ProductListAdapter
 import com.example.petstore.ui.dialog.ClearCartDialogHelper
 import com.example.petstore.ui.extensions.formatPrice
 import com.example.petstore.ui.viewmodel.HomeViewModel
-import com.example.petstore.ui.viewmodel.factory.HomeViewModelFactory
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private val database by inject<ProductDB>()
-    private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentsHomeBinding
     private lateinit var adapter: ProductListAdapter
     private lateinit var originalProductList: List<Product>
@@ -38,17 +32,14 @@ class HomeFragment : Fragment() {
     private val controller by lazy {
         findNavController()
     }
+    private val viewModel:HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inicialização do ViewModel com uma fábrica e observação de LiveData.
-        viewModel =
-            ViewModelProvider(this, HomeViewModelFactory(database, ProductRepository())).get(
-                HomeViewModel::class.java
-            )
+
         viewModel.productListLiveData.observe(viewLifecycleOwner) {
             originalProductList = it
             productList = it
@@ -175,4 +166,9 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
+
+
+
+
 

@@ -18,13 +18,14 @@ import com.example.petstore.ui.extensions.formatPrice
 import com.example.petstore.ui.viewmodel.DetailViewModel
 import com.example.petstore.ui.viewmodel.factory.DetailViewModelFactory
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragments : Fragment() {
 
 
     private val database by inject<ProductDB>()
 
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by viewModel()
     private lateinit var binding: FragmentsDetailsBinding
     private var quantity: Int = 1
     private var product = Product("", "", "", 1.0, Category.CAMAS)
@@ -34,9 +35,6 @@ class DetailFragments : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inicializa o ViewModel usando a instância do banco de dados
-        viewModel = ViewModelProvider(this, DetailViewModelFactory(database)).get(DetailViewModel::class.java)
 
         // Obtém o produto da argumento (se existir)
         val args = arguments
